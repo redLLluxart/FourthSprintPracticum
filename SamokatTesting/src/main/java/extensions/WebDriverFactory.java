@@ -6,8 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.time.Duration;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static config.AppConfig.URL;
@@ -40,7 +40,7 @@ public class WebDriverFactory {
 
         }
 
-        driver.manage().timeouts().implicitlyWait(WAIT_SECONDS_TIMEOUT,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(WAIT_SECONDS_TIMEOUT));
 
         driver.navigate().to(URL);
 

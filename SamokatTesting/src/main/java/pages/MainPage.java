@@ -10,17 +10,25 @@ import java.util.List;
 public class MainPage {
 
     private final WebDriver driver;
+
+    //Локатор кнопки с закрытием кук куками
+    private final By acceptCookie = By.id("rcc-confirm-button");
+
+    //Локатор блока вопросов
+
+    private final By questionBlock = By.className("Home_FAQ__3uVm4");
+
     //Локатор поля с первым вопросом
-    private final By FirstQuestionButton = By.id("accordion__heading-0");
+    private final By firstQuestionButton = By.xpath("//*[@id =\"accordion__heading-0\"]");
 
     //Локатор ответа на первый вопрос
-    private final By FirstAnswerText = By.xpath("//div[@id ='accordion__panel-0']/p");
+    private final By firstAnswerText = By.xpath("//*[@id =\"accordion__panel-0\"]/p");
 
     //Локатор поля с последним вопросом
-    private final By LastQuestionButton = By.id("accordion__heading-7");
+    private final By lastQuestionButton = By.id("accordion__heading-7");
 
     //Локатор ответа на последний вопрос
-    private final By LastAnswerText = By.xpath("//div[@id ='accordion__panel-7']/p");
+    private final By lastAnswerText = By.xpath("//div[@id ='accordion__panel-7']/p");
 
     //Локатор кнопки все
 
@@ -28,36 +36,42 @@ public class MainPage {
         this.driver = driver;
     }
 
+    public MainPage clickAcceptCookie(){
+        driver.findElement(acceptCookie).click();
+        return this;
+    }
+
+    public MainPage scrollQuestionBlock(){
+
+        WebElement element = driver.findElement(questionBlock);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+
+        return this;
+    }
 
     public MainPage clickFirstQuestionButton(){
 
-        WebElement element = driver.findElement(FirstQuestionButton);
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-
-        driver.findElement(FirstQuestionButton).click();
+        driver.findElement(firstQuestionButton).click();
 
         return this;
     }
 
     public String getTextFirstAnswer() {
 
-        return driver.findElement(FirstAnswerText).getText();
+        return driver.findElement(firstAnswerText).getText();
 
     }
 
     public MainPage clickLastQuestionButton(){
 
-        WebElement element = driver.findElement(LastQuestionButton);
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-
-        driver.findElement(LastQuestionButton).click();
+        driver.findElement(lastQuestionButton).click();
 
         return this;
     }
 
     public String getTextLastAnswer() {
 
-        return driver.findElement(LastAnswerText).getText();
+        return driver.findElement(lastAnswerText).getText();
 
     }
 

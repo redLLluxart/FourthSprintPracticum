@@ -18,19 +18,13 @@ public class QuestionTest {
         driver = WebDriverFactory.get();
     }
 
-    @Before
-    public  void closeCookie(){
-
-    }
-
-
     @Test
     public void checkAnswerFirstQuestion() {
 
         String actualAnswer = new MainPage(driver)
-
+                .clickAcceptCookie()
+                .scrollQuestionBlock()
                 .clickFirstQuestionButton()
-
                 .getTextFirstAnswer();
 
         assertEquals("Текст не появился или появился не правильный!","Сутки — 400 рублей. Оплата курьеру — наличными или картой.",actualAnswer);
