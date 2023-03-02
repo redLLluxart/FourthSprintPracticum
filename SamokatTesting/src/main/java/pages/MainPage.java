@@ -12,26 +12,11 @@ public class MainPage {
 
     private final WebDriver driver;
 
-    //Локатор кнопки с закрытием кук куками
+    //Локатор кнопки с принятием Cookies
     private final By acceptCookie = By.id("rcc-confirm-button");
 
     //Локатор блока вопросов
-
     private final By questionBlock = By.className("Home_FAQ__3uVm4");
-
-    //Локатор поля с первым вопросом
-    private final By firstQuestionButton = By.xpath("//*[@id =\"accordion__heading-0\"]");
-
-    //Локатор ответа на первый вопрос
-    private final By firstAnswerText = By.xpath("//*[@id =\"accordion__panel-0\"]/p");
-
-    //Локатор поля с последним вопросом
-    private final By lastQuestionButton = By.id("accordion__heading-7");
-
-    //Локатор ответа на последний вопрос
-    private final By lastAnswerText = By.xpath("//div[@id ='accordion__panel-7']/p");
-
-    //Локатор кнопки все
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -42,40 +27,25 @@ public class MainPage {
         return this;
     }
 
-    public MainPage scrollQuestionBlock(){
+    //Получение текста ответа
+    public String getTextAnswer(String idQuestion) {
+
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id =\"accordion__panel-" + idQuestion +"\"]/p")));
+
+        return driver.findElement(By.xpath("//*[@id =\"accordion__panel-" + idQuestion + "\"]/p")).getText();
+    }
+
+    //Клик по полю с вопросом
+    public MainPage clickQuestionButton(String question){
 
         WebElement element = driver.findElement(questionBlock);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
 
-        return this;
-    }
-
-    public MainPage clickFirstQuestionButton(){
-
-        driver.findElement(firstQuestionButton).click();
+        driver.findElement(By.xpath("//*[text() = '"+ question + "']")).click();
 
         return this;
     }
 
-    public String getTextFirstAnswer() {
-
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.presenceOfElementLocated(firstAnswerText));
-
-        return driver.findElement(firstAnswerText).getText();
-    }
-
-    public MainPage clickLastQuestionButton(){
-
-        driver.findElement(lastQuestionButton).click();
-
-        return this;
-    }
-
-    public String getTextLastAnswer() {
-
-        return driver.findElement(lastAnswerText).getText();
-
-    }
 
 }
