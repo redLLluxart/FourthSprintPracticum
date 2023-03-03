@@ -14,9 +14,12 @@ public class MainPage {
 
     //Локатор кнопки с принятием Cookies
     private final By acceptCookie = By.id("rcc-confirm-button");
-
     //Локатор блока вопросов
     private final By questionBlock = By.className("Home_FAQ__3uVm4");
+    //Локатор верхнеей кнопки заказа самоката
+    private final By topButtonOrder = By.xpath("//button[@class='Button_Button__ra12g']");
+    //Локатор нижней кнопки заказа самоката
+    private final By bottomButtonOrder = By.xpath("//div[@class = 'Home_FinishButton__1_cWm']/button[text()='Заказать']");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -47,5 +50,22 @@ public class MainPage {
         return this;
     }
 
+    public OrderPage clickTopButtonOrder(){
+
+        driver.findElement(topButtonOrder).click();
+
+        return new OrderPage(driver);
+    }
+
+    public OrderPage clickBottomButtonOrder(){
+
+        WebElement element = driver.findElement(bottomButtonOrder);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+
+
+        driver.findElement(bottomButtonOrder).click();
+
+        return new OrderPage(driver);
+    }
 
 }

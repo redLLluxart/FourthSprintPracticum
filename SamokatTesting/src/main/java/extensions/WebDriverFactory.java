@@ -3,16 +3,11 @@ package extensions;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static config.AppConfig.URL;
-
-import static config.WebDriverConfig.WAIT_SECONDS_TIMEOUT;
 
 public class WebDriverFactory {
 
@@ -30,9 +25,9 @@ public class WebDriverFactory {
 
                 break;
 
-            case "firefox":
+            case "edge":
 
-                driver = new FirefoxDriver();
+                driver = new EdgeDriver();
 
                 break;
 
@@ -40,7 +35,7 @@ public class WebDriverFactory {
 
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(WAIT_SECONDS_TIMEOUT));
+        driver.manage();
 
         driver.navigate().to(URL);
 
