@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 import static config.AppConfig.URL;
@@ -35,7 +35,7 @@ public class WebDriverFactory {
 
         }
 
-        driver.manage();
+        driver.manage().window().maximize();
 
         driver.navigate().to(URL);
 

@@ -26,7 +26,7 @@ public class SamokatTest {
 
     @Before
     public void setup() {
-        WebDriverManager.edgedriver().setup();
+        WebDriverManager.chromedriver().setup();
         driver = WebDriverFactory.get();
     }
 
