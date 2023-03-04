@@ -11,9 +11,7 @@ import static config.AppConfig.URL;
 
 public class WebDriverFactory {
 
-    public static WebDriver get() {
-
-        String browserName = System.getenv().get("browser");
+    public static WebDriver get(String browserName) {
 
         WebDriver driver;
 

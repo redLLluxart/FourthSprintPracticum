@@ -14,6 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class SamokatTest {
 
     private WebDriver driver;
+    private String orderButton;
     private String clientName;
     private String clientSurname;
     private String clientAdress;
@@ -24,15 +25,10 @@ public class SamokatTest {
     private String clientColourSamokat;
     private String clientCommentDeliveryBoy;
 
-    @Before
-    public void setup() {
-        WebDriverManager.chromedriver().setup();
-        driver = WebDriverFactory.get();
-    }
-
-    public SamokatTest(String clientName, String clientSurname, String clientAdress,
+    public SamokatTest(String orderButton, String clientName, String clientSurname, String clientAdress,
                        String clientUnderground, String clientPhoneNumber, String clientDateDelivery,
                        String clientRentalPeriod, String clientColourSamokat, String clientCommentDeliveryBoy) {
+        this.orderButton = orderButton;
         this.clientName = clientName;
         this.clientSurname = clientSurname;
         this.clientAdress = clientAdress;
@@ -44,38 +40,26 @@ public class SamokatTest {
         this.clientCommentDeliveryBoy = clientCommentDeliveryBoy;
     }
 
-
+    @Before
+    public void setup() {
+        WebDriverManager.chromedriver().setup();
+        driver = WebDriverFactory.get("edge");
+    }
 
     @Parameterized.Parameters
     public static Object[][] getTestData() {
         return new Object[][] {
-                {"Павел","Кулямин","Улица Пушкина","5","89999999999","08.03.2023","трое суток","grey","GG Hf"},
-                {"Александр","Невский","Улица Абсолютли","15","89999999999","10.04.2023","четверо суток","black","Большое вам спасибо!"},
+                {"Top","Павел","Кулямин","Улица Пушкина","5","89999999999","08.03.2023","трое суток","grey","GG Hf"},
+                {"Bottom","Александр","Невский","Улица Абсолютли","15","89999999999","10.04.2023","четверо суток","black","Большое вам спасибо!"},
         };
     }
 
     @Test
-    public void OrderTopButton() {
+    public void Order() {
 
         Boolean actual = new MainPage(driver)
                 .clickAcceptCookie()
-                .clickTopButtonOrder()
-                .setClientInfo(clientName,clientSurname,clientAdress,clientUnderground,clientPhoneNumber)
-                .clickButtonNext()
-                .setRentalInfo(clientDateDelivery,  clientRentalPeriod, clientColourSamokat, clientCommentDeliveryBoy)
-                .clickYesRegistrationOrder()
-                .isOrderCreate();
-
-        assertTrue("Окно заказ оформлен отсутсвует! Заказ не оформлен!",actual);
-
-    }
-
-    @Test
-    public void OrderBottomButton() {
-
-        Boolean actual = new MainPage(driver)
-                .clickAcceptCookie()
-                .clickBottomButtonOrder()
+                .clickButtonOrder(orderButton)
                 .setClientInfo(clientName,clientSurname,clientAdress,clientUnderground,clientPhoneNumber)
                 .clickButtonNext()
                 .setRentalInfo(clientDateDelivery,  clientRentalPeriod, clientColourSamokat, clientCommentDeliveryBoy)

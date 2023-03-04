@@ -54,20 +54,30 @@ public class MainPage {
         return this;
     }
 
-    public OrderPage clickTopButtonOrder(){
+    public OrderPage clickButtonOrder(String orderButton){
 
-        driver.findElement(topButtonOrder).click();
+        switch (orderButton) {
 
-        return new OrderPage(driver);
-    }
+            case "Top":
 
-    public OrderPage clickBottomButtonOrder(){
+                driver.findElement(topButtonOrder).click();
 
-        WebElement element = driver.findElement(bottomButtonOrder);
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+                break;
+
+            case "Bottom":
+
+                WebElement element = driver.findElement(bottomButtonOrder);
+                ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
 
 
-        driver.findElement(bottomButtonOrder).click();
+                driver.findElement(bottomButtonOrder).click();
+
+                break;
+
+            default: driver.findElement(topButtonOrder).click();
+
+        }
+
 
         return new OrderPage(driver);
     }

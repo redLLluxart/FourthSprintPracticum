@@ -16,7 +16,7 @@ public class AdditionalTest {
     @Before
     public void setup() {
         WebDriverManager.chromedriver().setup();
-        driver = WebDriverFactory.get();
+        driver = WebDriverFactory.get("chrome");
     }
 
     @Test
